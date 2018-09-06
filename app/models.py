@@ -29,3 +29,19 @@ class Pitch(db.Model):
 
     def __repr__(self):
         return f'Pitch {self.title}, {self.content}, {self.rating}, {self.likes}, {self.dislikes}, {self.time}'
+
+
+class User(db.Model):
+    __tablename__ = 'users'
+
+    id = db.Column(db.Interger, primary_key=True)
+    name = db.Column(db.String(30), nullable=False)
+    email = db.Column(db.String(30), unique=True, nullable=False)
+    bio = db.Column(db.String, nullable=False)
+    photo = db.Column(db.String)
+    password_hash = db.Column(db.String(60), nullable=False)
+    pitch = db.relationship('Pitch', backref='author', lazy='dynamic')
+    comment = db.relationship('Comment', backref='author', lazy='dynamic')
+
+    def __repr__(self):
+        return f'User {self.name}, {self.photo}, {self.bio}'
