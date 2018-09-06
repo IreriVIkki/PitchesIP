@@ -5,3 +5,11 @@ body {
 .light-grey {
     color: #dddddd
 }
+
+.field-box {
+    border: solid 1px #a1a1a1;
+    padding: 1rem;
+    background: #eeeeee;
+    margin: 1rem 0.5rem;
+    border-radius: 5px;
+}

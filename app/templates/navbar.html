@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-dark">
     <div class="container">
-        <a href="#" class="navbar-brand mr-5">
+        <a href="{{ url_for('main.home')}}" class="navbar-brand mr-5">
             <h2 class="mb-0 light-grey">Elevator Pitches</h2>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle"
@@ -14,7 +14,7 @@
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
-                <a class="nav-item nav-link text-info" href="#">Login</a>
+                <a class="nav-item nav-link text-info" href="{{ url_for('auth.login') }}">Login</a>
                 <a class="nav-item nav-link text-info" href="#">Register</a>
             </div>
         </div>
