@@ -11,7 +11,7 @@ def create_app(config_name):
     app.config.from_object(config_options[config_name])
     app.config['SECRET_KEY'] = 'c3be71c065117cd56d5113506fd6fbf3'
 
-    # initializing flask extentions
+    # initializing flask extentions by creatiing instances of the extensions
     db.init_app(app)
 
     # importing and regestering my main blueprint
