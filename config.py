@@ -1,4 +1,5 @@
 class DevConfig:
+    DEBUG = True
     pass
 
 
