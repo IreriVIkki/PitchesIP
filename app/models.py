@@ -45,3 +45,20 @@ class User(db.Model):
 
     def __repr__(self):
         return f'User {self.name}, {self.photo}, {self.bio}'
+
+
+class Comment(db.Model):
+
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Interger, primary_key=True)
+    content = db.Column(db.String, nullable=False)
+    time = db.Column(db.DateTime, default=datetime.utcnow)
+    rating = db.Column(db.Interger, nullable=False)
+    likes = db.Column(db.Integer, nullable=False)
+    dislikes = db.Column(db.Integer, nullable=False)
+    author_id = db.Column(db.Integer, nullable=False, unique=True)
+    pitch = db.relationship('Pitch', backref='comment', lazy='dynamic')
+
+    def __repr__(self):
+        return f'Comment {self.content}, {self.time}, {self.rating}, {self.likes}, {self.dislikes}'
