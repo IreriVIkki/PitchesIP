@@ -3,9 +3,36 @@
 {% block content %}
 <div class="container mt-3">
     <div class="field-box">
+        <!-- Adding a csrf tocken tag for providing security for the details -->
+        {{ form.hidden_tag() }}
         <form action="">
-            <legend>Login</legend>
+            <fieldset>
+                <legend>Login</legend>
+                <div class="form-group">
+                    {{ form.username.label(class='form-control ') }}
+                    {{ form.username(class='form-control') }}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class='form-control form-control-sm') }}
+                    {{ form.password(class='form-control') }}
+                </div>
+                <div class="form-check">
+                    {{ form.remember(class='form-check-input')}}
+                    {{ form.remember.label(class='form-check-label') }}
+                </div>
+            </fieldset>
+            <div class="d-inline-flex pt-2">
+                <a href="#" class="btn btn-outline-info mb-0">
+                    {{form.submit.label(class='mb-0')}}
+                </a>
+                <small class="text-muted ml-3">
+                    <a href="#" class="nav-link">Forgot Password? </a>
+                </small>
+            </div>
         </form>
+        <small class="text-muted margin-top">
+            <a href="{{ url_for('auth.register') }}" class="nav-link pl-0">Don't have an account yet? Register Here!</a>
+        </small>
     </div>
 </div>
 {% endblock content %}

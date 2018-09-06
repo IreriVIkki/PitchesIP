@@ -6,6 +6,7 @@ def create_app(config_name):
 
     app = Flask(__name__)
     app.config.from_object(config_options[config_name])
+    app.config['SECRET_KEY'] = 'c3be71c065117cd56d5113506fd6fbf3'
     # config_options[config_name].init_app(app)
 
     # importing and regestering my main blueprint

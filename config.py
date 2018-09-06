@@ -1,13 +1,22 @@
-class DevConfig:
+import os
+
+
+class Config:
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    pass
+
+
+class DevConfig(Config):
+
     DEBUG = True
     pass
 
 
-class ProdConfig:
+class ProdConfig(Config):
     pass
 
 
-class TestConfig:
+class TestConfig(Config):
     pass
 
 
