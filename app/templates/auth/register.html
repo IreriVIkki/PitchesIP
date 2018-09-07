@@ -1,39 +1,80 @@
 {% extends 'layout.html' %}
-
+<!-- this template leads to the page for regestering new users -->
 {% block content %}
-<div class="container mt-3">
-    <div class="field-box">
-        <!-- Adding a csrf tocken tag for providing security for the details -->
+<div class="content-section">
+    <form action="" method="POST">
+        <!-- this hidden tag adds a crsf tocken that provides protection for your shit -->
         {{ form.hidden_tag() }}
-        <form action="">
-            <fieldset>
-                <legend>Login</legend>
-                <div class="form-group">
-                    {{ form.email.label(class='form-control ') }}
-                    {{ form.email(class='form-control') }}
+        <!-- field set groups together shit that is related to each other -->
+        <fieldset class="form-group">
+            <!-- legend gives a dope ass title to a form field -->
+            <legend class="border-bottom mb-4">Join Today</legend>
+            <div class="form-group">
+                {{ form.username.label(class='form-control') }}
+                {% if form.username.errors %}
+                {{ form.username(class='form-control form-control-lg is-invalid') }}
+                <div class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
                 </div>
-                <div class="form-group">
-                    {{ form.username.label(class='form-control ') }}
-                    {{ form.username(class='form-control') }}
-                </div>
-                <div class="form-group">
-                    {{ form.password.label(class='form-control form-control-sm') }}
-                    {{ form.password(class='form-control') }}
-                </div>
-                <div class="form-group">
-                    {{ form.confirm_password.label(class='form-control form-control-sm') }}
-                    {{ form.confirm_password(class='form-control') }}
-                </div>
-            </fieldset>
-            <div class="d-inline-flex pt-2">
-                <a href="{{ url_for('main.home') }}" class="btn btn-outline-info mb-0">
-                    {{form.submit.label(class='mb-0')}}
-                </a>
+                {% else %}
+                {{ form.username(class='form-control form-control-lg') }}
+                {% endif %}
             </div>
-        </form>
-        <small class="text-muted margin-top">
-            <a href="{{ url_for('auth.login') }}" class="nav-link pl-0">Already have an account? Login Here!</a>
+            <div class="form-group">
+                {{ form.email.label(class='form-control') }}
+                {% if form.email.errors %}
+                {{ form.email(class='form-control form-control-lg is-invalid') }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.email(class='form-control form-control-lg') }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.password.label(class='form-control') }}
+                {% if form.password.errors %}
+                {{ form.password(class='form-control form-control-lg is-invalid') }}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.password(class='form-control form-control-lg') }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.confirm_password.label(class='form-control') }}
+                {% if form.confirm_password.errors %}
+                {{ form.confirm_password(class='form-control form-control-lg is-invalid') }}
+                <div class="invalid-feedback">
+                    {% for error in form.confirm_password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.confirm_password(class='form-control form-control-lg') }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class='btn btn-outline-info') }}
+        </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already Have An Account
+            <a class="ml-2" href="{{ url_for('auth.login') }}">Sign In</a>
         </small>
     </div>
 </div>
 {% endblock content %}
+
+
+<!-- EXTRA NOTES -->
+<!-- leaving the action with just blanc strings means that on submit the form will be posted on the very same page -->
