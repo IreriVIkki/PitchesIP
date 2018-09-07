@@ -24,9 +24,12 @@ class Pitch(db.Model):
     likes = db.Column(db.Integer, nullable=False)
     dislikes = db.Column(db.Integer, nullable=False)
     time = db.Column(db.DateTime, default=datetime.utcnow)
-    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
-    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
+    author_id = db.Column(
+        db.Integer, db.ForeignKey('users.id'), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey(
+        'categories.id'), nullable=False)
+    comment_id = db.Column(db.Integer, db.ForeignKey(
+        'comments.id'), nullable=False)
 
     def __repr__(self):
         return f'Pitch {self.title}, {self.content}, {self.rating}, {self.likes}, {self.dislikes}, {self.time}'
@@ -41,8 +44,8 @@ class User(db.Model):
     bio = db.Column(db.String, nullable=False)
     photo = db.Column(db.String, default='default.jpg')
     password_hash = db.Column(db.String(60), nullable=False)
-    pitch = db.relationship('Pitch', backref='author', lazy='dynamic')
-    comment = db.relationship('Comment', backref='author', lazy='dynamic')
+    pitches = db.relationship('Pitch', backref='author', lazy='dynamic')
+    comments = db.relationship('Comment', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return f'User {self.name}, {self.photo}, {self.bio}'
@@ -58,7 +61,8 @@ class Comment(db.Model):
     rating = db.Column(db.Integer, nullable=False)
     likes = db.Column(db.Integer, nullable=False)
     dislikes = db.Column(db.Integer, nullable=False)
-    author_id = db.Column(db.Integer, nullable=False, unique=True)
+    author_id = db.Column(
+        db.Integer, db.ForeignKey('users.id'), nullable=False)
     pitch = db.relationship('Pitch', backref='comment', lazy='dynamic')
 
     def __repr__(self):
