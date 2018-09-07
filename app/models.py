@@ -1,4 +1,5 @@
-from . import db
+from . import database as db
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 
