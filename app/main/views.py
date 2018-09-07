@@ -1,6 +1,7 @@
 from flask_login import login_required
 from flask import render_template, url_for
 from . import main
+from flask_login import current_user
 
 
 @main.route('/')
@@ -13,3 +14,9 @@ def home():
 @login_required
 def new_pitch():
     pass
+
+
+@main.route('/user/dashboard')
+@login_required
+def dashboard():
+    return render_template('dashboard.html', title='Dashboard')

@@ -12,7 +12,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user is not None and user.verify_password(form.password.data):
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('main.home'))
+            return redirect(url_for('main.dashboard'))
         else:
             flash('Invalid login credentials')
     return render_template('auth/login.html', form=form)
@@ -25,7 +25,7 @@ def register():
         user = User(email=form.email.data, name=form.username.data,
                     password=form.password.data)
         user.save_user(user)
-        return redirect(url_for('main.home'))
+        return redirect(url_for('auth.login'))
     return render_template('auth/register.html', title='Register', form=form)
 
 
