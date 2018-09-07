@@ -4,6 +4,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from . import login_manager
+from flask_login import login_user
 
 
 class Category(db.Model):
@@ -49,6 +50,10 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(255), nullable=False)
     pitches = db.relationship('Pitch', backref='author', lazy='dynamic')
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
+
+    def save_user(self, user):
+        db.session.add(user)
+        db.session.commit()
 
     @property
     def password(self):
