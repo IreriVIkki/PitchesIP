@@ -11,10 +11,11 @@ def login():
     return render_template('auth/login.html', form=form)
 
 
-@auth.route('/register')
+@auth.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
+        print('WORKS')
         user = User(email=form.email.data, name=form.name.data,
                     password=form.password.data)
         db.session.add(user)

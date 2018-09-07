@@ -44,9 +44,9 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
-    bio = db.Column(db.String, nullable=False)
+    bio = db.Column(db.String)
     photo = db.Column(db.String, default='default.jpg')
-    password_hash = db.Column(db.String(60), nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
     pitches = db.relationship('Pitch', backref='author', lazy='dynamic')
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
 
