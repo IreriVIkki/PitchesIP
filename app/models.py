@@ -1,4 +1,4 @@
-from . import database as db
+from . import db
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -19,12 +19,12 @@ class Pitch(db.Model):
 
     id = db.Column(db.String, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    content = db.Column(db.String, nullable=False)
-    rating = db.Column(db.Interger, nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
     likes = db.Column(db.Integer, nullable=False)
     dislikes = db.Column(db.Integer, nullable=False)
     time = db.Column(db.DateTime, default=datetime.utcnow)
-    author_id = db.Column(db.Interger, db.ForeignKey('users.id'))
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
 
@@ -35,11 +35,11 @@ class Pitch(db.Model):
 class User(db.Model):
     __tablename__ = 'users'
 
-    id = db.Column(db.Interger, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
     bio = db.Column(db.String, nullable=False)
-    photo = db.Column(db.String)
+    photo = db.Column(db.String, default='default.jpg')
     password_hash = db.Column(db.String(60), nullable=False)
     pitch = db.relationship('Pitch', backref='author', lazy='dynamic')
     comment = db.relationship('Comment', backref='author', lazy='dynamic')
@@ -52,10 +52,10 @@ class Comment(db.Model):
 
     __tablename__ = 'comments'
 
-    id = db.Column(db.Interger, primary_key=True)
-    content = db.Column(db.String, nullable=False)
-    time = db.Column(db.DateTime, default=datetime.utcnow)
-    rating = db.Column(db.Interger, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    rating = db.Column(db.Integer, nullable=False)
     likes = db.Column(db.Integer, nullable=False)
     dislikes = db.Column(db.Integer, nullable=False)
     author_id = db.Column(db.Integer, nullable=False, unique=True)
