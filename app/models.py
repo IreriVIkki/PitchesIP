@@ -1,6 +1,9 @@
 from . import db
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+from . import login_manager
 
 
 class Category(db.Model):
@@ -35,7 +38,7 @@ class Pitch(db.Model):
         return f'Pitch {self.title}, {self.content}, {self.rating}, {self.likes}, {self.dislikes}, {self.time}'
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -46,6 +49,17 @@ class User(db.Model):
     password_hash = db.Column(db.String(60), nullable=False)
     pitches = db.relationship('Pitch', backref='author', lazy='dynamic')
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
+
+    @property
+    def password(self):
+        raise AttributeError('You cant read password attribute')
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
         return f'User {self.name}, {self.photo}, {self.bio}'
@@ -67,3 +81,8 @@ class Comment(db.Model):
 
     def __repr__(self):
         return f'Comment {self.content}, {self.time}, {self.rating}, {self.likes}, {self.dislikes}'
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
