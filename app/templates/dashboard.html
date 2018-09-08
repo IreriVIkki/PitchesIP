@@ -1,4 +1,63 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h1>{{title}}</h1>
+<div class="dashboard">
+    <div class="side-bar border-right border-secondary">
+        <h1>{{title}}</h1>
+        <ul class="d-block pl-0">
+            <li>
+                <a class="nav-link" href="#">Posts</a>
+                <ul>
+                    <li>
+                        <a href="">all</a>
+                    </li>
+                    <li>
+                        <a href="">draft</a>
+                    </li>
+                    <li>
+                        <a href="">published</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="nav-link" href="#">Comments</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#">Stats</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#">Settings</a>
+            </li>
+        </ul>
+    </div>
+    <div class="main">
+        <div class="dash-content">
+            <div>
+                <a href="#">New Pitch</a>
+            </div>
+            <div class="options border-bottom border-secondary">
+                <p>options will be put here</p>
+            </div>
+            <div class="pitch-items">
+                <ul>
+                    <li>
+                        <div class="border-bottom d-inline-flex border-success">
+                            <input type="text" class="form-check form-control-sm">
+                            <p>Pitch Title will be positioned here</p>
+                            <p>category</p>
+                            <p>author</p>
+                            <h3>comments</h3>
+                            <h3>likes</h3>
+                            <h3>dislikes</h3>
+                            <p>
+                                <small class="text-muted">
+                                    posted
+                                </small>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
