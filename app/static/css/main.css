@@ -46,20 +46,19 @@ label {
     margin-bottom: 0% !important;
 }
 
-li,
 h1,
 p,
 a,
 h2,
 h3,
 label {
-    margin-right: 1.25rem !important;
+    margin-right: 1rem !important;
 }
 
 .pitch-dashboard {
     width: 100%;
     display: grid;
-    grid-auto-columns: 1fr 12fr 3fr 3fr 2fr 2fr 2fr 3fr;
+    grid-auto-columns: 1fr 16fr 3fr 3fr 2fr 2fr 2fr 3fr;
     grid-template-areas: 'a b c d e f g h'
 }
 
@@ -68,7 +67,8 @@ label {
 }
 
 .pitch-title {
-    grid-area: b
+    grid-area: b;
+    min-width: 45%;
 }
 
 .pitch-category {

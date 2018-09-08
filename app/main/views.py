@@ -13,7 +13,7 @@ def home():
 @main.route('/new/pitch')
 @login_required
 def new_pitch():
-    pass
+    return render_template('pitch.html', title='Create New Pitch')
 
 
 @main.route('/user/dashboard')
