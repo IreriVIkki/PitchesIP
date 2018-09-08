@@ -100,3 +100,8 @@ label {
 .far {
     font-size: 16px;
 }
+
+.text-md {
+    font-size: 36px;
+    color: #eece1a
+}
