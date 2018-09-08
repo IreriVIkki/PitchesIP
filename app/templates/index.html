@@ -1,38 +1,45 @@
 {% extends 'layout.html' %}
 {% block content %}
-<div class="slider">
-    <div class="box">
-        <figure class="figure">
+<div class="container-fluid p-0">
+    <div class="box ">
+        <figure class="figure d-flex align-items-center">
             <div class="slide">
-                <img src="{{ url_for('static', filename='../static/images/slider1.jpg')}}" alt="">
+                <img class="slide-img" src="{{ url_for('static', filename='../static/images/slider1.jpg')}}" alt="">
                 <div class="slide-content">
                     <h3>image 1</h3>
                 </div>
             </div>
             <div class="slide">
-                <img src="{{ url_for('static', filename='../static/images/slider1.jpg')}}" alt="">
+                <img class="slide-img" src="{{ url_for('static', filename='../static/images/slider2.jpg')}}" alt="">
                 <div class="slide-content">
-                    <h3>image 1</h3>
+                    <h3>image 2</h3>
                 </div>
             </div>
             <div class="slide">
-                <img src="{{ url_for('static', filename='../static/images/slider1.jpg')}}" alt="">
+                <img class="slide-img" src="{{ url_for('static', filename='../static/images/slider3.jpg')}}" alt="">
                 <div class="slide-content">
-                    <h3>image 1</h3>
+                    <h3>image 3</h3>
                 </div>
             </div>
             <div class="slide">
-                <img src="{{ url_for('static', filename='../static/images/slider1.jpg')}}" alt="">
+                <img class="slide-img" src="{{ url_for('static', filename='../static/images/slider4.jpg')}}" alt="">
                 <div class="slide-content">
-                    <h3>image 1</h3>
+                    <h3>image 4</h3>
                 </div>
             </div>
         </figure>
     </div>
 </div>
 <div class="pitches">
-    <div class="pitch">
-
+    <div class="pitch-row">
+        <div class="pitch-box a text-center">
+            <h1>Pitch Title</h1>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis quibusdam enim veritatis quos totam!
+                Sapiente quod provident debitis odit sequi.</p>
+            <a href="#" class="btn btn-dark btn-sm my-2">
+                <h4 class="m-0"><small class="dropdown ">datails</small></h4>
+            </a>
+        </div>
     </div>
 </div>
 {% endblock content %}

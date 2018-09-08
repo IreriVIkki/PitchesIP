@@ -1,7 +1,106 @@
-body {
-    background-color: black
+/* styling for the homepage image slider */
+.box {
+    width: 100%;
+    overflow: hidden;
+    height: 350px;
 }
 
+.figure {
+    width: 400%;
+    height: 100%;
+    left: 0%;
+    position: relative;
+    background-color: #4f4943;
+    animation-name: slider;
+    animation-duration: 35000ms;
+    animation-iteration-count: infinite;
+}
+
+.slide {
+    width: 100%;
+}
+
+.slide-img {
+    width: 100%;
+}
+
+.slide-content {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    background-color: rgba(#4f4943, 0.7)
+}
+
+@keyframes slider {
+    0% {
+        left: 0%
+    }
+
+    22% {
+        left: 0%;
+    }
+
+    25% {
+        left: -100%;
+    }
+
+    47% {
+        left: -100%;
+    }
+
+    50% {
+        left: -200%;
+    }
+
+    72% {
+        left: -200%;
+    }
+
+    75% {
+        left: -300%;
+    }
+
+    100% {
+        left: -300%;
+    }
+}
+
+/* End of home page image slider css styling */
+/* styling for the pitches on the homepage */
+.pitches {
+    background: #4f4943
+}
+
+.pitch-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: 'a b c d';
+}
+
+.pitch-box {
+    border: #232221 solid 2px;
+    border-radius: 5%;
+    padding: 0.75rem;
+    margin: 0.75rem;
+}
+
+.a {
+    grid-area: a;
+}
+
+.b {
+    grid-area: b;
+}
+
+.c {
+    grid-area: c;
+}
+
+.d {
+    grid-area: d;
+}
+
+/* end of styling for the home page pitches */
 .light-grey {
     color: #dddddd
 }
