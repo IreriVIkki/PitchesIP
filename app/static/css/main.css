@@ -41,6 +41,62 @@ h1,
 p,
 a,
 h2,
-h3 {
-    margin-bottom: 0;
+h3,
+label {
+    margin-bottom: 0% !important;
+}
+
+li,
+h1,
+p,
+a,
+h2,
+h3,
+label {
+    margin-right: 1.25rem !important;
+}
+
+.pitch-dashboard {
+    width: 100%;
+    display: grid;
+    grid-auto-columns: 1fr 12fr 3fr 3fr 2fr 2fr 2fr 3fr;
+    grid-template-areas: 'a b c d e f g h'
+}
+
+.pitch-index {
+    grid-area: a
+}
+
+.pitch-title {
+    grid-area: b
+}
+
+.pitch-category {
+    grid-area: c
+}
+
+.pitch-author {
+    grid-area: d
+}
+
+.pitch-comments {
+    grid-area: e
+}
+
+.pitch-likes {
+    grid-area: f
+}
+
+.pitch-dislikes {
+    grid-area: g
+}
+
+.pitch-date {
+    grid-area: h
+}
+
+.fa,
+.fas,
+.far {
+    font-size: 16px;
 }
