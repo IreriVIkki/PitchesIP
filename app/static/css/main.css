@@ -68,35 +68,37 @@
 /* End of home page image slider css styling */
 /* styling for the pitches on the homepage */
 .pitches {
-    background: #4f4943
+    background: #dddddd
 }
 
 .pitch-row {
+    padding: 1rem 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas: 'a b c d';
 }
 
 .pitch-box {
+    background-color: #3f3933;
     border: #232221 solid 2px;
     border-radius: 5%;
     padding: 0.75rem;
     margin: 0.75rem;
 }
 
-.a {
+.a1 {
     grid-area: a;
 }
 
-.b {
+.a2 {
     grid-area: b;
 }
 
-.c {
+.a3 {
     grid-area: c;
 }
 
-.d {
+.a4 {
     grid-area: d;
 }
 

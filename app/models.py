@@ -24,16 +24,19 @@ class Pitch(db.Model):
     id = db.Column(db.String, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    rating = db.Column(db.Integer, nullable=False)
-    likes = db.Column(db.Integer, nullable=False)
-    dislikes = db.Column(db.Integer, nullable=False)
+    rating = db.Column(db.Integer)
+    likes = db.Column(db.Integer)
+    dislikes = db.Column(db.Integer)
     time = db.Column(db.DateTime, default=datetime.utcnow)
     author_id = db.Column(
-        db.Integer, db.ForeignKey('users.id'), nullable=False)
+        db.Integer, db.ForeignKey('users.id'))
     category_id = db.Column(db.Integer, db.ForeignKey(
-        'categories.id'), nullable=False)
-    comment_id = db.Column(db.Integer, db.ForeignKey(
-        'comments.id'), nullable=False)
+        'categories.id'),)
+    comments = db.relationship('Pitch', backref='comment', lazy='dynamic')
+
+    def save_pitch(self, pitch):
+        db.session.add(pitch)
+        db.session.commit()
 
     def __repr__(self):
         return f'Pitch {self.title}, {self.content}, {self.rating}, {self.likes}, {self.dislikes}, {self.time}'
@@ -47,7 +50,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(30), unique=True, nullable=False)
     bio = db.Column(db.String)
     photo = db.Column(db.String, default='default.jpg')
-    password_hash = db.Column(db.String(255), nullable=False)
+    password_hash = db.Column(db.String(255))
     pitches = db.relationship('Pitch', backref='author', lazy='dynamic')
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
 
@@ -67,7 +70,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return f'User {self.name}, {self.photo}, {self.bio}'
+        return f'User {self.name}, {self.email}, {self.bio}'
 
 
 class Comment(db.Model):
@@ -76,13 +79,16 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
-    time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    rating = db.Column(db.Integer, nullable=False)
-    likes = db.Column(db.Integer, nullable=False)
-    dislikes = db.Column(db.Integer, nullable=False)
-    author_id = db.Column(
-        db.Integer, db.ForeignKey('users.id'), nullable=False)
-    pitch = db.relationship('Pitch', backref='comment', lazy='dynamic')
+    time = db.Column(db.DateTime, default=datetime.utcnow)
+    rating = db.Column(db.Integer)
+    likes = db.Column(db.Integer)
+    dislikes = db.Column(db.Integer)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+
+    def save_pitch(self, comment):
+        db.session.add(comment)
+        db.session.commit()
 
     def __repr__(self):
         return f'Comment {self.content}, {self.time}, {self.rating}, {self.likes}, {self.dislikes}'
