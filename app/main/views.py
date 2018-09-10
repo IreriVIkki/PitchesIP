@@ -3,7 +3,7 @@ from flask import render_template, url_for, redirect
 from . import main
 from .forms import PitchForm, CommentForm
 from flask_login import current_user
-from ..models import Pitch, Comment, Category, User
+from ..models import Pitch, Comment, User
 from datetime import datetime
 
 
@@ -19,6 +19,11 @@ def new_pitch(uname):
     form = PitchForm()
 
     if form.validate_on_submit():
+        print(form.category.data)
+        new_pitch = Pitch(title=form.title.data,
+                          content=form.content.data, rating=0, likes=0, dislikes=0, time=datetime.utcnow(), )
+        new_pitch.save_pitch(new_pitch)
+
         return redirect(url_for('main.home'))
     return render_template('pitch.html', form=form, title='Create New Pitch')
 

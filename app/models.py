@@ -28,35 +28,22 @@ class Comment(db.Model):
         return f'Comment {self.content}, {self.time}, {self.rating}, {self.likes}, {self.dislikes}'
 
 
-class Category(db.Model):
-    __tablename__ = 'categories'
-
-    id = db.Column(db.Integer, primary_key=True)
-    category_name = db.Column(db.String(20), unique=True, nullable=False)
-    pitches = db.relationship('Pitch', backref='category', lazy='dynamic')
-
-    def __repr__(self):
-        return f'Category {self.category_name}'
-
-
 class Pitch(db.Model):
     __tablename__ = 'pitches'
 
-    id = db.Column(db.String, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    content = db.Column(db.Text, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
+    content = db.Column(db.Text)
     rating = db.Column(db.Integer)
     likes = db.Column(db.Integer)
     dislikes = db.Column(db.Integer)
-    time = db.Column(db.DateTime, default=datetime.utcnow)
-    author_id = db.Column(
-        db.Integer, db.ForeignKey('users.id'))
-    category_id = db.Column(db.Integer, db.ForeignKey(
-        'categories.id'),)
+    time = db.Column(db.DateTime)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    category_id = db.Column(db.String)
     comments = db.relationship('Comment', backref='comment', lazy='dynamic')
 
-    def save_user(self, user):
-        db.session.add(user)
+    def save_pitch(self, pitch):
+        db.session.add(pitch)
         db.session.commit()
 
     def __repr__(self):
