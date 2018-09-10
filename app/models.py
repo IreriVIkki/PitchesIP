@@ -7,6 +7,27 @@ from . import login_manager
 from flask_login import login_user
 
 
+class Comment(db.Model):
+
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    time = db.Column(db.DateTime, default=datetime.utcnow)
+    rating = db.Column(db.Integer)
+    likes = db.Column(db.Integer)
+    dislikes = db.Column(db.Integer)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+
+    def save_pitch(self, comment):
+        db.session.add(comment)
+        db.session.commit()
+
+    def __repr__(self):
+        return f'Comment {self.content}, {self.time}, {self.rating}, {self.likes}, {self.dislikes}'
+
+
 class Category(db.Model):
     __tablename__ = 'categories'
 
@@ -32,10 +53,10 @@ class Pitch(db.Model):
         db.Integer, db.ForeignKey('users.id'))
     category_id = db.Column(db.Integer, db.ForeignKey(
         'categories.id'),)
-    comments = db.relationship('Pitch', backref='comment', lazy='dynamic')
+    comments = db.relationship('Comment', backref='comment', lazy='dynamic')
 
-    def save_pitch(self, pitch):
-        db.session.add(pitch)
+    def save_user(self, user):
+        db.session.add(user)
         db.session.commit()
 
     def __repr__(self):
@@ -71,27 +92,6 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f'User {self.name}, {self.email}, {self.bio}'
-
-
-class Comment(db.Model):
-
-    __tablename__ = 'comments'
-
-    id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.Text, nullable=False)
-    time = db.Column(db.DateTime, default=datetime.utcnow)
-    rating = db.Column(db.Integer)
-    likes = db.Column(db.Integer)
-    dislikes = db.Column(db.Integer)
-    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
-
-    def save_pitch(self, comment):
-        db.session.add(comment)
-        db.session.commit()
-
-    def __repr__(self):
-        return f'Comment {self.content}, {self.time}, {self.rating}, {self.likes}, {self.dislikes}'
 
 
 @login_manager.user_loader

@@ -5,6 +5,7 @@
     <div class="field-box">
         <form action="" method="POST">
             <!-- this hidden tag adds a crsf tocken that provides protection for your shit -->
+            {{ simplemde.load }}
             {{ form.hidden_tag() }}
             <!-- field set groups together shit that is related to each other -->
             <fieldset class="form-group">

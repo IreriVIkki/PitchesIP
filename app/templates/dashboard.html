@@ -1,4 +1,11 @@
 {% extends 'layout.html' %}
+{%block styles %}
+{{super()}}
+<!--Importing the simple mde css and js files  -->
+{{ simplemde.css}}
+{{ simplemde.js }}
+
+{% endblock %}
 {% block content %}
 <div class="dashboard">
     <div class="side-bar border-right border-secondary pl-2">
@@ -32,7 +39,8 @@
     <div class="main px-3 ml-3">
         <div class="dash-content">
             <div class=" mb-3">
-                <a href="{{ url_for('main.new_pitch') }}" class="text-light m-0 btn btn-success">New Pitch</a>
+                <a href="{{ url_for('main.new_pitch', uname=current_user.name) }}" class="text-light m-0 btn btn-success">New
+                    Pitch</a>
             </div>
             <div class="pitch-items">
                 <ul class="pl-0 ">
