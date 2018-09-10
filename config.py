@@ -10,6 +10,8 @@ class Config:
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
 
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+
     @staticmethod
     def init_app(app):
         pass
