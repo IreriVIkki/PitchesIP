@@ -5,6 +5,18 @@
     height: 350px;
 }
 
+.comments {
+    background: #dddddd;
+    height: 100vw;
+}
+
+.comment-box {
+    border: #a1a1a1 1px solid;
+    border-left: #1ab5ee 3px solid;
+    padding: 1rem;
+    margin: 6px;
+}
+
 .figure {
     width: 400%;
     height: 100%;
@@ -18,6 +30,10 @@
 
 .slide {
     width: 100%;
+}
+
+.bg-lavender {
+    background-color: lavenderblush
 }
 
 .slide-img {

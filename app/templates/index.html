@@ -31,16 +31,24 @@
     </div>
 </div>
 <div class="pitches">
+    {% for subpitches in pitches %}
     <div class="pitch-row">
-        <div class="pitch-box a1 text-center text-light">
-            <h1 class="border-bottom border-secondary mb-2">Pitch Title</h1>
-            <p class="">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Quis quibusdam enim veritatis quos totam!
-                Sapiente quod provident debitis odit sequi.</p>
-            <a href="#" class="btn btn-dark btn-sm my-2">
-                <h4 class="m-0"><small class="dropdown ">datails</small></h4>
+        {% set number = loop.index %}
+        {% for pitch in subpitches %}
+        <div class="pitch-box a1 text-center text-light a{{loop.index}}">
+            <h1 class="border-bottom border-secondary mb-2">{{pitch.title}}</h1>
+            <p class="">{{pitch.content | truncate(300)}}</p>
+            <a href="{{ url_for('main.click', id=pitch.id) }}" class="btn btn-dark btn-sm my-2" on-click='click({{pitch.title}})'>
+                <h4 class="m-0">
+                    <small class="dropdown" data-toggle="collapse" data-target="#pitch_options{{number}}" aria-expanded="false">datails</small>
+                    <h4>
             </a>
         </div>
+        {% endfor %}
     </div>
+    <div class="collapse container px-5" id="pitch_options{{number}}">
+
+    </div>
+    {% endfor %}
 </div>
 {% endblock content %}

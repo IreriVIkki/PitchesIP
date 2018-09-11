@@ -1,5 +1,5 @@
 from . import db
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy, orm
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -12,42 +12,42 @@ class Comment(db.Model):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.Text, nullable=False)
-    time = db.Column(db.DateTime, default=datetime.utcnow)
+    content = db.Column(db.String)
+    time = db.Column(db.String)
     rating = db.Column(db.Integer)
     likes = db.Column(db.Integer)
     dislikes = db.Column(db.Integer)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
 
-    def save_pitch(self, comment):
+    def save_comment(self, comment):
         db.session.add(comment)
         db.session.commit()
 
     def __repr__(self):
-        return f'Comment {self.content}, {self.time}, {self.rating}, {self.likes}, {self.dislikes}'
+        return f'Comment ({self.content}, {self.time}, {self.rating}, {self.likes}, {self.dislikes})'
 
 
 class Pitch(db.Model):
     __tablename__ = 'pitches'
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100))
-    content = db.Column(db.Text)
+    title = db.Column(db.String)
+    content = db.Column(db.String)
     rating = db.Column(db.Integer)
     likes = db.Column(db.Integer)
     dislikes = db.Column(db.Integer)
-    time = db.Column(db.DateTime)
-    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    time = db.Column(db.String)
     category_id = db.Column(db.String)
-    comments = db.relationship('Comment', backref='comment', lazy='dynamic')
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    comments = db.relationship('Comment', backref='pitch', lazy='dynamic')
 
     def save_pitch(self, pitch):
         db.session.add(pitch)
         db.session.commit()
 
     def __repr__(self):
-        return f'Pitch {self.title}, {self.content}, {self.rating}, {self.likes}, {self.dislikes}, {self.time}'
+        return f'Pitch ({self.title}, {self.content}, {self.rating}, {self.likes}, {self.dislikes}, {self.time})'
 
 
 class User(db.Model, UserMixin):
@@ -78,7 +78,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return f'User {self.name}, {self.email}, {self.bio}'
+        return f'User ({self.name}, {self.email}, {self.bio})'
 
 
 @login_manager.user_loader

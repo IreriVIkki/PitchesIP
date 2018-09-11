@@ -18,7 +18,7 @@
                         <a href="">all</a>
                     </li>
                     <li>
-                        <a href="">draft</a>
+                        <a class="q"    q href="">draft</a>
                     </li>
                     <li>
                         <a href="">published</a>
@@ -39,45 +39,56 @@
     <div class="main px-3 ml-3">
         <div class="dash-content">
             <div class=" mb-3">
-                <a href="{{ url_for('main.new_pitch', uname=current_user.name) }}" class="text-light m-0 btn btn-success">New
-                    Pitch</a>
+                <a href="{{ url_for('main.new_pitch', uname=current_user.name) }}" class="text-light m-0 btn btn-success">
+                    New Pitch
+                </a>
             </div>
+            {% for pitch in pitches %}
             <div class="pitch-items">
                 <ul class="pl-0 ">
                     <li>
                         <div class="border-bottom ">
                             <div class=" d-inline-flex border-success pb-3 my-1 pitch-dashboard flex-fill">
-                                <label class="d-flex align-items-center pitch-index flex-fill" for="number">1.</label>
+                                <label class="d-flex align-items-center pitch-index flex-fill" for="number">{{ pitch.id
+                                    }}</label>
                                 <p class="d-flex align-items-center pitch-title flex-fill">
-                                    <span>Pitch Title will be positioned here</span>
+                                    <span>{{ pitch.title }}</span>
                                 </p>
                                 <p class="d-flex align-items-center pitch-author flex-fill text-info" data-toggle="collapse"
-                                    data-target="#Pitch-Options" aria-expanded="false">options
-                                    <span> <i class="fas fa-caret-down pl-2"></i> </span>
+                                    data-target="#Pitch-Options{{pitch.id}}" aria-expanded="false">options
+                                    <span>
+                                        <i class="fas fa-caret-down pl-2"></i>
+                                    </span>
                                 </p>
-                                <p class="d-flex align-items-center pitch-category flex-fill">category</p>
-                                <h3 class="d-flex align-items-center pitch-comments flex-fill"><span>
+                                <p class="d-flex align-items-center pitch-category flex-fill">{{ pitch.category_id }}</p>
+                                <h3 class="d-flex align-items-center pitch-comments flex-fill">
+                                    <span>
                                         <i class="fas fa-comment-dots">
-                                            <span class="ml-1">1</span>
+                                            <span class="ml-1">{{ pitch.comments.all() | length }}</span>
                                         </i>
-                                    </span></h3>
+                                    </span>
+                                </h3>
                                 <h3 class="d-flex align-items-center pitch-likes flex-fill">
-                                    <span><i class="fas fa-thumbs-up">
-                                            <span class="ml-1">1</span>
-                                        </i></span>
+                                    <span>
+                                        <i class="fas fa-thumbs-up">
+                                            <span class="ml-1">{{ pitch.likes }}</span>
+                                        </i>
+                                    </span>
                                 </h3>
                                 <h3 class="d-flex align-items-center pitch-dislikes flex-fill">
-                                    <span><i class="fas fa-thumbs-down">
-                                            <span class="ml-1">1</span>
-                                        </i></span>
+                                    <span>
+                                        <i class="fas fa-thumbs-down">
+                                            <span class="ml-1">{{ pitch.dislikes }}</span>
+                                        </i>
+                                    </span>
                                 </h3>
                                 <p class="d-flex align-items-center pitch-date flex-fill mr-1">
                                     <small class="text-muted">
-                                        posted
+                                        {{ pitch.time }}
                                     </small>
                                 </p>
                             </div>
-                            <div class="collapse" id="Pitch-Options">
+                            <div class="collapse" id="Pitch-Options{{pitch.id}}">
                                 <a href="#" class="btn btn-sm mb-2 btn-info">Edit</a>
                                 <a href="#" class="btn btn-sm mb-2 btn-danger">Delete</a>
                             </div>
@@ -85,6 +96,7 @@
                     </li>
                 </ul>
             </div>
+            {% endfor %}
         </div>
     </div>
 </div>

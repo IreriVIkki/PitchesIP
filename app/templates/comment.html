@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="comments">
+    <div class="container px-5 py-2">
+        <div class="d-block mb-3">
+            <h1 class="pb-1">{{ title }}
+            </h1>
+            <small class="text-muted border-bottom border-info pb-1 mb-4">No cursing, no flirting and no trolling!</small>
+        </div>
+        <div>
+            <blockquote class="blockquote border border-secondary ml-4 rounded p-4 bg-lavender">
+                <h2 class="border-bottom border-primary d-inline-flex mb-2">{{ pitch.title }}</h2>
+                <p class="pl-3">
+                    {{ pitch.content }}
+                </p>
+            </blockquote>
+        </div>
+
+        <form action="" method="POST">
+            {{ form.csrf_token }}
+            <fieldset class="form-group">
+                <div>
+                    {{ form.content.label(class='form-control-sm btn-dark d-inline-flex mb-2') }}
+                    {% if form.content.errors %}
+                    {{ form.content(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.content.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.content(class='form-control form-control-lg') }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class='btn btn-info btn-sm my-2') }}
+                </div>
+            </fieldset>
+        </form>
+        <div class="container ml-5">
+            <h2 class="font-italic font-weight-bold pb-2">{{ comments }} Comments</h2>
+            {% for comment in pitch.comments.all() %}
+            <div class="comment-box">
+                <p class="pb-2">
+                    {{ comment.content }}
+                </p>
+                <small>
+                    Posted by
+                    <span class="font-weight-bold text-info">
+                        {{comment.author.name }}
+                    </span>
+                    on
+                    <span class="font-weight-bold text-info">
+                        {{ comment.time }}
+                    </span>
+                </small>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
