@@ -38,16 +38,26 @@
         <div class="pitch-box a1 text-center text-light a{{loop.index}}">
             <h1 class="border-bottom border-secondary mb-2">{{pitch.title}}</h1>
             <p class="">{{pitch.content | truncate(300)}}</p>
+            {% if current_user.is_authenticated %}
+            <a href="#pitch_options{{number}}" class="btn btn-dark btn-sm my-2" on-click='click({{pitch.title}})'>
+                <h4 class="m-0">
+                    <small class="dropdown" data-toggle="collapse" data-target="#pitch_options{{number}}" aria-expanded="false">logged</small>
+                    <h4>
+            </a>
+            {% else %}
             <a href="{{ url_for('main.click', id=pitch.id) }}" class="btn btn-dark btn-sm my-2" on-click='click({{pitch.title}})'>
                 <h4 class="m-0">
                     <small class="dropdown" data-toggle="collapse" data-target="#pitch_options{{number}}" aria-expanded="false">datails</small>
                     <h4>
             </a>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
     <div class="collapse container px-5" id="pitch_options{{number}}">
-
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa veniam itaque rerum distinctio ullam deserunt
+            ratione, nobis debitis doloremque quas incidunt porro delectus inventore suscipit saepe dignissimos nostrum
+            aliquid eius?</p>
     </div>
     {% endfor %}
 </div>
