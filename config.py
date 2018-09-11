@@ -3,7 +3,7 @@ import os
 import psycopg2 as p
 
 conn = p.connect(dbname='pitches', user='postgres',
-                 host='localhost', password='sasawa', port=543)
+                 host='localhost', password='sasawa', port=542)
 
 conn.autocommit = True
 cur = conn.cursor()
