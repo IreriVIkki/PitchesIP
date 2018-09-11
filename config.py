@@ -1,13 +1,5 @@
 import os
 
-import psycopg2 as p
-
-conn = p.connect(dbname='pitches', user='postgres',
-                 host='localhost', password='sasawa', port=5432)
-
-conn.autocommit = True
-cur = conn.cursor()
-
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
