@@ -3,7 +3,6 @@ import os
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    # DATABSQLALCHEMY_DATABASE_URIASE_URL = 'postgresql+psycopg2://vikki:sasawa@localhost/pitches'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # simple mde configurations
@@ -18,17 +17,14 @@ class Config:
 class DevConfig(Config):
     #     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://vikki:sasawa@localhost/pitches'
     DEBUG = True
-    pass
 
 
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://vikki:sasawa@localhost/pitches'
-    pass
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 
 class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://vikki:sasawa@localhost/pitches'
-    pass
 
 
 config_options = {
