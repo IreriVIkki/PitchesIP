@@ -12,21 +12,15 @@ import markdown2
 @main.route('/', methods=['GET', 'POST'])
 def home():
     title = 'Welcome To Pitches'
+    com_title = "Please leave a comment"
     pitchesa = Pitch.query.all()
     all_pitches = len(pitchesa)
     pitches = sub_arrays(pitchesa, 4)
-    return render_template('index.html', title=title, pitches=pitches, all_pitches=all_pitches)
-
-
-@main.route('/comments/<id>', methods=['GET', 'POST'])
-@login_required
-def click(id):
-    title = "Please leave a comment"
-    pitch = Pitch.query.get(id)
     form = CommentForm()
     user = current_user
-    comments = len(pitch.comments.all())
     if form.validate_on_submit():
+        pitch_id = int(form.pitch_id.data)
+        pitch = Pitch.query.get(pitch_id)
         new_comment = Comment(content=form.content.data,
                               time=datetime.utcnow().strftime("%H:%M"),
                               rating=0,
@@ -36,10 +30,17 @@ def click(id):
                               pitch=pitch)
         new_comment.save_comment(new_comment)
         print(new_comment)
+    return render_template('index.html', title=title, pitches=pitches, all_pitches=all_pitches, form=form, com_title=com_title)
 
-        return redirect(url_for('main.click', id=id))
 
-    return render_template('comment.html', title=title,  form=form, pitch=pitch, comments=comments)
+# @main.route('/comments/<id>', methods=['GET', 'POST'])
+# @login_required
+# def click(id):
+#     pitch = Pitch.query.get(id)
+
+#         return redirect(url_for('main.click', id=id))
+
+#     return render_template('comment.html', title=title,  form=form, pitch=pitch, comments=comments)
 
 
 @main.route('/<uname>/new/pitch', methods=['GET', 'POST'])

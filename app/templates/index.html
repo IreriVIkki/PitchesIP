@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
+<div class="dim d-none"></div>
 <div class="container-fluid p-0">
     <div class="box ">
         <figure class="figure d-flex align-items-center">
@@ -34,30 +35,85 @@
     {% for subpitches in pitches %}
     <div class="pitch-row">
         {% set number = loop.index %}
-        {% for pitch in subpitches %}
-        <div class="pitch-box a1 text-center text-light a{{loop.index}}">
-            <h1 class="border-bottom border-secondary mb-2">{{pitch.title}}</h1>
-            <p class="">{{pitch.content | truncate(300)}}</p>
-            {% if current_user.is_authenticated %}
-            <a href="#pitch_options{{number}}" class="btn btn-dark btn-sm my-2" on-click='click({{pitch.title}})'>
-                <h4 class="m-0">
-                    <small class="dropdown" data-toggle="collapse" data-target="#pitch_options{{number}}" aria-expanded="false">logged</small>
-                    <h4>
-            </a>
-            {% else %}
-            <a href="{{ url_for('main.click', id=pitch.id) }}" class="btn btn-dark btn-sm my-2" on-click='click({{pitch.title}})'>
-                <h4 class="m-0">
-                    <small class="dropdown" data-toggle="collapse" data-target="#pitch_options{{number}}" aria-expanded="false">datails</small>
-                    <h4>
-            </a>
-            {% endif %}
+        {% for pitcha in subpitches %}
+        {% set pitch=pitcha %}
+        <div>
+            <div class="pitch-box a1 text-center text-light a{{loop.index}}">
+                <h1 class="border-bottom border-secondary mb-2">{{pitch.title}}</h1>
+                <p class="">{{pitch.content | truncate(300)}}</p>
+                {% set id = pitch.id %}
+                <button class="btn btn-dark btn-sm my-2 box-link" onclick="classname({{id}});">comments
+                </button>
+            </div>
+            <div class="comment-block res{{id}} px-5 d-none">
+                <div class="comments">
+                    <div class="container px-5 py-3">
+                        {% if current_user.is_authenticated %}
+                        <div class="d-block mb-3">
+                            <h1 class="pb-1">{{ com_title }}
+                            </h1>
+                            <small class="text-muted border-bottom border-info pb-1 mb-4">No cursing, no flirting and
+                                no
+                                trolling!</small>
+                        </div>
+                        {% endif %}
+                        <div>
+                            <blockquote class="blockquote border border-secondary ml-4 rounded p-4 bg-info">
+                                <h2 class="border-bottom border-primary d-inline-flex mb-2">{{ pitch.title }}</h2>
+                                <p class="pl-3">
+                                    {{ pitch.content }}
+                                </p>
+                            </blockquote>
+                        </div>
+                        {% if current_user.is_authenticated %}
+                        <form action="" method="POST">
+                            {{ form.csrf_token }}
+                            {{ form.pitch_id(value=pitch.id, class='d-none') }}
+                            <fieldset class="form-group">
+                                <div>
+                                    {{ form.content.label(class='form-control-sm btn-dark d-inline-flex mb-2') }}
+                                    {% if form.content.errors %}
+                                    {{ form.content(class='form-control form-control-lg is-invalid') }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.content.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.content(class='form-control form-control-lg') }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.submit(class='btn btn-info btn-sm my-2') }}
+                                </div>
+                            </fieldset>
+                        </form>
+                        {% endif %}
+                        <div class="container ml-5">
+                            <h2 class="font-italic font-weight-bold pb-2">{{ pitch.comments.all() | length }} Comments</h2>
+                            {% for comment in pitch.comments.all() %}
+                            <div class="comment-box">
+                                <p class="pb-2">
+                                    {{ comment.content }}
+                                </p>
+                                <small>
+                                    Posted by
+                                    <span class="font-weight-bold text-info">
+                                        {{comment.author.name }}
+                                    </span>
+                                    on
+                                    <span class="font-weight-bold text-info">
+                                        {{ comment.time }}
+                                    </span>
+                                </small>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         {% endfor %}
-    </div>
-    <div class="collapse container px-5" id="pitch_options{{number}}">
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa veniam itaque rerum distinctio ullam deserunt
-            ratione, nobis debitis doloremque quas incidunt porro delectus inventore suscipit saepe dignissimos nostrum
-            aliquid eius?</p>
     </div>
     {% endfor %}
 </div>

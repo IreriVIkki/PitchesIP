@@ -17,3 +17,4 @@ class CommentForm(FlaskForm):
     content = TextAreaField('Enter Pitch Here', validators=[
         DataRequired(), Length(min=2, max=2000)])
     submit = SubmitField('Comment')
+    pitch_id = StringField('')
