@@ -13,10 +13,11 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String)
-    time = db.Column(db.String)
+    time = db.Column(db.String(100))
     rating = db.Column(db.Integer)
     likes = db.Column(db.Integer)
     dislikes = db.Column(db.Integer)
+    bs = db.Column(db.Integer)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
 
